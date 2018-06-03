@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cxq.o2o.dao.ShopCategoryDao">
+	<select id="queryShopCategory" resultType="ShopCategory">
+		select
+		shop_category_id,
+		shop_category_name,
+		shop_category_desc,
+		shop_category_img,
+		priority,
+		create_time,
+		last_edit_time,
+		parent_id
+		from
+		tb_shop_category
+		<where>
+		<!-- 由于店铺是在二级店铺类别下面的，所以要选出parent_id不能为空的数据 -->
+		<if test="shopCategoryCondition != null">
+				and parent_id is not null
+			</if>
+			<if test="shopCategoryCondition.parent != null">
+				and parent_id = #{shopCategoryCondition.parent.shopCategoryId}
+			</if>
+		</where>
+		ORDER BY
+		priority DESC
+	</select>
+</mapper>
