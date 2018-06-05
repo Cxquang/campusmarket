@@ -18,6 +18,7 @@ import com.cxq.o2o.entity.PersonInfo;
 import com.cxq.o2o.entity.Shop;
 import com.cxq.o2o.entity.ShopCategory;
 import com.cxq.o2o.enums.ShopStateEnum;
+import com.cxq.o2o.exceptions.ShopOperationException;
 
 public class ShopServiceTest extends BaseTest{
 	@Autowired
@@ -49,6 +50,18 @@ public class ShopServiceTest extends BaseTest{
 		assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
 
 		
+	}
+	
+	@Test
+	public void testModifyShop() throws ShopOperationException,FileNotFoundException{
+		Shop shop = new Shop();
+		shop.setShopId(1L);
+		shop.setShopName("修改后的店铺名称4");
+		File shopImg = new File("E:\\image\\flower.jpg");
+		InputStream is = new FileInputStream(shopImg);
+		ShopExecution shopExecution = shopService.modifyShop(shop, is, "flower.jpg");
+		System.out.println("新的图片地址： " + shopExecution.getShop().getShopImg());
+		System.out.println("新的店铺名称：" + shopExecution.getShop().getShopName());
 	}
 }
 

@@ -1,24 +1,15 @@
-2018-06-03 14:06:34.465[qtp1694519286-17] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - ==>  Preparing: select shop_category_id, shop_category_name, shop_category_desc, shop_category_img, priority, create_time, last_edit_time, parent_id from tb_shop_category WHERE parent_id is not null ORDER BY priority DESC 
-2018-06-03 14:06:34.582[qtp1694519286-17] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - ==> Parameters: 
-2018-06-03 14:06:34.633[qtp1694519286-17] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - <==      Total: 1
-2018-06-03 14:06:34.651[qtp1694519286-17] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==>  Preparing: select area_id,area_name,priority,create_time,last_edit_time from tb_area order by priority desc 
-2018-06-03 14:06:34.657[qtp1694519286-17] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==> Parameters: 
-2018-06-03 14:06:34.661[qtp1694519286-17] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - <==      Total: 2
-2018-06-03 14:07:15.718[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - ==>  Preparing: insert into tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr, phone,shop_img,priority ,create_time,last_edit_time,enable_Status,advice) values(?,?,?,?, ?,?,?,?,?,?,?, ?,?) 
-2018-06-03 14:07:15.726[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - ==> Parameters: 1(Long), 2(Integer), 2(Long), 蔡贤权的店铺2(String), 牛奶咖啡(String), 五邑大学(String), 13680442679(String), null, null, 2018-06-03 14:07:15.717(Timestamp), 2018-06-03 14:07:15.717(Timestamp), 0(Integer), null
-2018-06-03 14:07:15.764[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - <==    Updates: 1
-2018-06-03 14:07:16.269[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==>  Preparing: update tb_shop SET shop_name=?, shop_desc=?, shop_addr=?, phone=?, shop_img=?, last_edit_time=?, enable_status=?, area_id=?, shop_category_id=? where shop_id=? 
-2018-06-03 14:07:16.271[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==> Parameters: 蔡贤权的店铺2(String), 牛奶咖啡(String), 五邑大学(String), 13680442679(String), upload\item\shop\36\2018060314071513638.jpg(String), 2018-06-03 14:07:15.717(Timestamp), 0(Integer), 2(Integer), 2(Long), 36(Long)
-2018-06-03 14:07:16.272[qtp1694519286-20] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - <==    Updates: 1
-2018-06-03 14:08:17.023[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - ==>  Preparing: select shop_category_id, shop_category_name, shop_category_desc, shop_category_img, priority, create_time, last_edit_time, parent_id from tb_shop_category WHERE parent_id is not null ORDER BY priority DESC 
-2018-06-03 14:08:17.024[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - ==> Parameters: 
-2018-06-03 14:08:17.026[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopCategoryDao.queryShopCategory - <==      Total: 1
-2018-06-03 14:08:17.028[qtp1694519286-14] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==>  Preparing: select area_id,area_name,priority,create_time,last_edit_time from tb_area order by priority desc 
-2018-06-03 14:08:17.029[qtp1694519286-14] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==> Parameters: 
-2018-06-03 14:08:17.035[qtp1694519286-14] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - <==      Total: 2
-2018-06-03 14:08:47.639[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - ==>  Preparing: insert into tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr, phone,shop_img,priority ,create_time,last_edit_time,enable_Status,advice) values(?,?,?,?, ?,?,?,?,?,?,?, ?,?) 
-2018-06-03 14:08:47.640[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - ==> Parameters: 1(Long), 2(Integer), 2(Long), 蔡贤权的店铺2(String), 洗衣液(String), 五邑大学(String), 13680442679(String), null, null, 2018-06-03 14:08:47.638(Timestamp), 2018-06-03 14:08:47.638(Timestamp), 0(Integer), null
-2018-06-03 14:08:47.642[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.insertShop - <==    Updates: 1
-2018-06-03 14:08:48.091[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==>  Preparing: update tb_shop SET shop_name=?, shop_desc=?, shop_addr=?, phone=?, shop_img=?, last_edit_time=?, enable_status=?, area_id=?, shop_category_id=? where shop_id=? 
-2018-06-03 14:08:48.092[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==> Parameters: 蔡贤权的店铺2(String), 洗衣液(String), 五邑大学(String), 13680442679(String), upload\item\shop\37\2018060314084754469.jpg(String), 2018-06-03 14:08:47.638(Timestamp), 0(Integer), 2(Integer), 2(Long), 37(Long)
-2018-06-03 14:08:48.094[qtp1694519286-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - <==    Updates: 1
+2018-06-05 18:00:12.579[qtp9843062-15] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==>  Preparing: select s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name from tb_shop s,tb_area a,tb_shop_category sc where s.shop_id = ? and s.shop_category_id = sc.shop_category_id and s.area_id = a.area_id 
+2018-06-05 18:00:12.692[qtp9843062-15] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==> Parameters: 1(Long)
+2018-06-05 18:00:12.799[qtp9843062-15] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - <==      Total: 1
+2018-06-05 18:00:12.842[qtp9843062-15] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==>  Preparing: select area_id,area_name,priority,create_time,last_edit_time from tb_area order by priority desc 
+2018-06-05 18:00:12.842[qtp9843062-15] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - ==> Parameters: 
+2018-06-05 18:00:12.844[qtp9843062-15] DEBUG com.cxq.o2o.dao.AreaDao.queryArea - <==      Total: 2
+2018-06-05 18:01:50.244[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==>  Preparing: select s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name from tb_shop s,tb_area a,tb_shop_category sc where s.shop_id = ? and s.shop_category_id = sc.shop_category_id and s.area_id = a.area_id 
+2018-06-05 18:01:50.245[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==> Parameters: 1(Long)
+2018-06-05 18:01:50.249[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - <==      Total: 1
+2018-06-05 18:01:51.836[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==>  Preparing: update tb_shop SET shop_name=?, shop_desc=?, shop_addr=?, phone=?, shop_img=?, last_edit_time=?, area_id=?, shop_category_id=? where shop_id=? 
+2018-06-05 18:01:51.872[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - ==> Parameters: 蔡贤权和魏旭方的店铺(String), 麦咖啡和奶茶(String), 五邑大学48栋202(String), 13680442679(String), upload\item\shop\1\2018060518015075330.jpg(String), 2018-06-05 18:01:51.435(Timestamp), 2(Integer), 1(Long), 1(Long)
+2018-06-05 18:01:51.917[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.updateShop - <==    Updates: 1
+2018-06-05 18:01:51.918[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==>  Preparing: select s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name from tb_shop s,tb_area a,tb_shop_category sc where s.shop_id = ? and s.shop_category_id = sc.shop_category_id and s.area_id = a.area_id 
+2018-06-05 18:01:51.919[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - ==> Parameters: 1(Long)
+2018-06-05 18:01:51.928[qtp9843062-14] DEBUG com.cxq.o2o.dao.ShopDao.queryByShopId - <==      Total: 1

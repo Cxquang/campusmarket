@@ -18,7 +18,7 @@ public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao shopDao;
 	@Test
-	//@Ignore
+	@Ignore
 	public void insertShopTest() {
 		
 		PersonInfo owner = new PersonInfo();
@@ -41,5 +41,13 @@ public class ShopDaoTest extends BaseTest{
 		shop.setShopId(1L);
 		int effectedNum = shopDao.updateShop(shop);
 		assertEquals(1, effectedNum);
+	}
+	
+	@Test
+	public void queryByShopIdTest() {
+		Shop shop = shopDao.queryByShopId(1L);
+		System.out.println("areaId: " + shop.getArea().getAreaId());
+		System.out.println("areaName: " + shop.getArea().getAreaName());
+		
 	}
 }

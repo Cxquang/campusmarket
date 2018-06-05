@@ -2,14 +2,49 @@
  * 
  */
 $(function(){
+	var shopId = getQueryString("shopId");
+	//如果shopId是true就是用来更新店铺信息，如果为false即是注册店铺
+	var isEdit = shopId?true:false;
+	
 	//由于在pom.xml中定义jetty访问的路径，所以这里的url不用加o2o项目名
 	var initUrl = '/shopadmin/getshopinitinfo';
 	var registerShopUrl = '/shopadmin/registershop';
+	var shopInfoUrl = '/shopadmin/getshopbyid?shopId=' + shopId;
+	var editShopUrl ='/shopadmin/modifyshop';
 	/*
 	 * 去后台调取区域信息以及店铺类别信息，并加载到前端的店铺类别和区域类别控件当中
 	 */
 	//alert(initUrl);
-	getShopInitInfo();
+	if(!isEdit){
+		getShopInitInfo();
+	}else{
+		getShopInfo(shopId);
+	}
+	function getShopInfo(shopId){
+		$.getJSON(shopInfoUrl,function(data){
+			if(data.success){
+				var shop = data.shop;
+				$('#shop-name').val(shop.shopName);
+				$('#shop-addr').val(shop.shopAddr);
+				$('#shop-phone').val(shop.phone);
+				$('#shop-desc').val(shop.shopDesc);
+				var shopCategory = '<option data-id="' + shop.shopCategory.shopCategoryId + '">'
+				+ shop.shopCategory.shopCategoryName + '</option>';
+				var tempAreaHtml = '';
+				data.areaList.map(function(item,index){
+					tempAreaHtml += '<option data-id="' + item.areaId + '">'
+					+ item.areaName + '</option>';
+				});
+				$('#shop-category').html(shopCategory);
+				//设置属性，不可修改
+				$('#shop-category').attr('disabled','disabled');
+				$('#area').html(tempAreaHtml);
+				//设置默认选择店铺现在的区域信息
+				$("#area option[data-id='" + shop.area.areaId + "']").attr('selected',"selected");
+			}
+			
+		});
+	}
 	function getShopInitInfo(){
 		$.getJSON(initUrl,function(data){
 			if(data.success){
@@ -34,6 +69,9 @@ $(function(){
 	}	
 		$('#submit').click(function(){
 			var shop = {};
+			if(isEdit){
+				shop.shopId = shopId;
+			}
 			shop.shopName = $('#shop-name').val();
 			shop.shopAddr = $('#shop-addr').val();
 			shop.phone = $('#shop-phone').val();
@@ -63,7 +101,7 @@ $(function(){
 			}
 			formData.append('verifyCodeActual',verifyCodeActual);
 			$.ajax({
-				url : registerShopUrl,
+				url : (isEdit?editShopUrl:registerShopUrl),
 				type:'POST',
 				data : formData,
 				contentType : false,
