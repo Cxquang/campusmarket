@@ -241,4 +241,68 @@ public class ShopManagementController {
 			return modelMap;
 		}
 	}
+	
+	/**
+	 * 展示店铺列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/getshoplist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> getShopList(HttpServletRequest request){
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		//由于登录界面还没实现，所以这里先传入一个Id值
+		PersonInfo user = new PersonInfo();
+		user.setUserId(1L);
+		user.setName("test");
+		request.getSession().setAttribute("user", user);
+		user = (PersonInfo) request.getSession().getAttribute("user");
+		
+		try {
+			Shop shopCondition = new Shop();
+			shopCondition.setOwner(user);
+			//由于这里是个人店铺显示列表，所以取到100为最大值
+			ShopExecution se = shopService.getShopList(shopCondition, 0, 100);
+			modelMap.put("shopList", se.getShopList());
+			modelMap.put("user", user);
+			modelMap.put("success", true); 
+		}catch(Exception e) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+		return modelMap;
+		
+	}
+	
+	
+
+	/**
+	 * 主要是用来在展示 店铺信息前判断不经过登录或者店铺列表链接过来的用户进行阻止 ，对session相关信息的操作
+	 * @param request
+	 * @return
+	 */  
+	@RequestMapping(value="/getshopmanagementinfo", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> getShopManagementInfo(HttpServletRequest  request){
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		if(shopId <= 0) {
+			Object currentShopObj = request.getSession().getAttribute("currentShop");
+			if(currentShopObj == null) {
+				modelMap.put("redirect", true);
+				modelMap.put("url", "/shopadmin/shoplist"); 
+			}else {
+				Shop currentShop =  (Shop)currentShopObj;
+				modelMap.put("redirect", false);
+				modelMap.put("shopId", currentShop.getShopId());
+			}
+		}else {
+			Shop currentShop = new Shop();
+			currentShop.setShopId(shopId);
+			request.getSession().setAttribute("currentShop", currentShop);
+			modelMap.put("redirect", false);
+		}
+		return modelMap;
+		
+	}
 }

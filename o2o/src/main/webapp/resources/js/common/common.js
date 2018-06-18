@@ -7,6 +7,7 @@ function changeVerifyCode(){
 	x.src="../Kaptcha?" + Math.floor(Math.random() * 100);
 }
 
+//获取url中参数
 function getQueryString(name){
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);

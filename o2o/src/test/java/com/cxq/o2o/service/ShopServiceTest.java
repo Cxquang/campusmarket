@@ -7,11 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cxq.o2o.BaseTest;
+import com.cxq.o2o.dao.ShopDao;
 import com.cxq.o2o.dto.ShopExecution;
 import com.cxq.o2o.entity.Area;
 import com.cxq.o2o.entity.PersonInfo;
@@ -23,6 +25,7 @@ import com.cxq.o2o.exceptions.ShopOperationException;
 public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService shopService;
+
 	
 	
 	@Test
@@ -62,6 +65,18 @@ public class ShopServiceTest extends BaseTest{
 		ShopExecution shopExecution = shopService.modifyShop(shop, is, "flower.jpg");
 		System.out.println("新的图片地址： " + shopExecution.getShop().getShopImg());
 		System.out.println("新的店铺名称：" + shopExecution.getShop().getShopName());
+	}
+	
+	@Test
+	public void testGetShopList() {
+		Shop shopCondition = new Shop();
+		ShopCategory sc = new ShopCategory();
+		sc.setShopCategoryId(1L);
+		shopCondition.setShopCategory(sc);
+		ShopExecution se = shopService.getShopList(shopCondition, 1, 2);
+		System.out.println("店铺列表数： " + se.getShopList().size());
+		System.out.println("店铺总数： " + se.getCount());
+		
 	}
 }
 

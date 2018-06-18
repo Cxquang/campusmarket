@@ -36,4 +36,13 @@ public interface ShopService {
 	 * @throws ShopOperationException
 	 */
 	ShopExecution modifyShop(Shop shop,InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+	
+	/**
+	 * 根据shopCondition分页返回相应列表数据
+	 * @param shopCondition
+	 * @param pageIndexx
+	 * @param pageSize
+	 * @return
+	 */
+	ShopExecution getShopList(Shop shopCondition,int pageIndex,int pageSize);
 }

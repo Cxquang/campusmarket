@@ -4,8 +4,9 @@
 $(function(){
 	var shopId = getQueryString("shopId");
 	//如果shopId是true就是用来更新店铺信息，如果为false即是注册店铺
-	var isEdit = shopId?true:false;
 	
+	var isEdit = shopId?true:false;
+	console.log(isEdit);
 	//由于在pom.xml中定义jetty访问的路径，所以这里的url不用加o2o项目名
 	var initUrl = '/shopadmin/getshopinitinfo';
 	var registerShopUrl = '/shopadmin/registershop';
@@ -20,6 +21,7 @@ $(function(){
 	}else{
 		getShopInfo(shopId);
 	}
+	//店铺编辑获取的信息
 	function getShopInfo(shopId){
 		$.getJSON(shopInfoUrl,function(data){
 			if(data.success){
@@ -101,6 +103,7 @@ $(function(){
 			}
 			formData.append('verifyCodeActual',verifyCodeActual);
 			$.ajax({
+				//通过isEdit判断是注册店铺还是修改店铺
 				url : (isEdit?editShopUrl:registerShopUrl),
 				type:'POST',
 				data : formData,

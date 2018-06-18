@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SUI Mobile Demo</title>
-    <meta name="description" content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
-    <meta name="author" content="阿里巴巴国际UED前端">
+    <title>店铺编辑</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,9 +27,21 @@ var _hmt = _hmt || [];
     s.parentNode.insertBefore(hm, s);
 })();
 </script>
+<script>
+function initDocument(){
+<%
+   if session("local_page") <> (Request.ServerVariables("SCRIPT_NAME") & "?" & Server.URLEncode(Request.ServerVariables("QUERY_STRING"))) then
+      session("local_page") = (Request.ServerVariables("SCRIPT_NAME") & "?" & Server.URLEncode(Request.ServerVariables("QUERY_STRING")))
+%>
+location.replace('<%=session("local_page")%>');
+<%
+  end if
+%>
+}
+</Script>
 
   <style>#BAIDU_DSPUI_FLOWBAR,.adsbygoogle,.ad,div[class^="ad-widsget"],div[id^="div-gpt-ad-"],a[href*="cpro.baidu.com"],a[href*="@"][href*=".exe"],a[href*="/?/"][href*=".exe"],.adpushwin{display:none!important;max-width:0!important;max-height:0!important;overflow:hidden!important;}</style></head>
-  <body>
+  <body onload="initDocument()">
     <div class="page-group">
     <div id="page-label-input" class="page">
   <header class="bar bar-nav">

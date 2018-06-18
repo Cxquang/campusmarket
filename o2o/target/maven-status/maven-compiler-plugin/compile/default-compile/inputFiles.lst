@@ -22,6 +22,7 @@ D:\Git\o2o\src\main\java\com\cxq\o2o\entity\ShopCategory.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\util\PathUtil.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\util\ImageUtil.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\entity\Product.java
+D:\Git\o2o\src\main\java\com\cxq\o2o\util\PageCalculator.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\service\impl\AreaServiceImpl.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\service\impl\ShopServiceImpl.java
 D:\Git\o2o\src\main\java\com\cxq\o2o\dao\ShopCategoryDao.java
