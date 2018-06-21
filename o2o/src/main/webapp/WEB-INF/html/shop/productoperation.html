@@ -3,10 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Cache-Control" content="no-cache">
-	<meta http-equiv="Expires" content="0">
-    <title>店铺编辑</title>
+    <title>商品编辑</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -52,7 +49,7 @@ location.replace('<%=session("local_page")%>');
       <span class="icon icon-left"></span>
       返回
     </a>
-    <h1 class="title">商店信息</h1>
+    <h1 class="title">商品编辑</h1>
   </header>
   <div class="content">
     <div class="list-block">
@@ -61,58 +58,67 @@ location.replace('<%=session("local_page")%>');
         <li>
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">商铺名称</div>
+              <div class="item-title label">商品名称</div>
               <div class="item-input">
-                <input type="text" id="shop-name" placeholder="商铺名称">
+                <input type="text" id="product-name" placeholder="商品名称">
               </div>
             </div>
           </div>
         </li>
-        	<!-- 商铺分类 下拉列表 -->
+        	<!-- 商品分类 下拉列表 -->
         <li>
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">商铺分类</div>
+              <div class="item-title label">商品分类</div>
               <div class="item-input">
               <!-- 设置id，利用js将后台数据传输到前端 -->
-                <select id="shop-category">
+                <select id="category">
 
                 </select>
               </div>
             </div>
           </div>
         </li>
-        	<!-- 区域分类 下拉列表 -->
+        	<!-- 优先级显示 -->
         <li>
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">所属区域</div>
+              <div class="item-title label">优先级显示</div>
               <div class="item-input">
-                <select id="area">
-                 
-                </select>
+                <input type="text" id="priority" placeholder="数字最大优先显示，如“100”">
               </div>
             </div>
           </div>
         </li>
-        	<!-- 详细地址 text -->
-       	<li>
+        	<!-- 原价 -->
+        <li>
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">详细地址</div>
+              <div class="item-title label">原价</div>
               <div class="item-input">
-                <input type="text" id="shop-addr" placeholder="详细地址">
+                <input type="text" id="normal-price" placeholder="可选">
               </div>
             </div>
           </div>
         </li>
-        	<!-- 联系电话 text -->
-       	<li>
+        <!-- 现价 -->
+        <li>
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">联系电话</div>
+              <div class="item-title label">现价</div>
               <div class="item-input">
-                <input type="text" id="shop-phone" placeholder="联系电话">
+                <input type="text" id="promotion-price" placeholder="可选">
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- 积分 -->
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">积分</div>
+              <div class="item-input">
+                <input type="text" id="point" placeholder="可选">
               </div>
             </div>
           </div>
@@ -123,18 +129,29 @@ location.replace('<%=session("local_page")%>');
             <div class="item-inner">
               <div class="item-title label">缩略图</div>
               <div class="item-input">
-                <input type="file" id="shop-img">
+                <input type="file" id="small-img">
               </div>
             </div>
           </div>
         </li>
-        	<!-- 店铺简介 textarea -->
+        	<!-- 详情图 上传控件 -->
+        <li>
+          <div class="item-content">
+            <div class="item-inner detail-img-div">
+              <div class="item-title label">详情图片</div>
+              <div class="item-input" id="detail-img">
+                <input type="file" class="detail-img">
+              </div>
+            </div>
+          </div>
+        </li>
+        	<!-- 商品描述 textarea -->
         <li class="align-top">
           <div class="item-content">
             <div class="item-inner">
-              <div class="item-title label">店铺简介</div>
+              <div class="item-title label">商品描述</div>
               <div class="item-input">
-                <textarea id="shop-desc" placeholder="店铺简介"></textarea>
+                <textarea id="product-desc" placeholder="商品描述"></textarea>
               </div>
             </div>
           </div>
@@ -157,7 +174,7 @@ location.replace('<%=session("local_page")%>');
     </div>
     <div class="content-block">
       <div class="row">
-        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">返回</a></div>
+        <div class="col-50"><a href="/shopadmin/productmanage" class="button button-big button-fill button-danger">返回商品管理</a></div>
         <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit">提交</a></div>
       </div>
     </div>
@@ -168,7 +185,7 @@ location.replace('<%=session("local_page")%>');
 	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-    <script type='text/javascript' src='../resources/js/shop/shopoperation.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../resources/js/shop/productoperation.js' charset='utf-8'></script>
     <script type='text/javascript' src='../resources/js/common/common.js' charset='utf-8'></script>
 		
   </body>

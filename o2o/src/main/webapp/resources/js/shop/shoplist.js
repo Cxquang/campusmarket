@@ -11,6 +11,8 @@ $(function(){
 					handleList(data.shopList);
 					//显示用户名，调用函数handleUser
 					handleUser(data.user);
+/*					$('#addShop')
+					.attr('href','/shopadmin/productoperation?shopId=1');*/
 				}
 			}
 		});
@@ -18,6 +20,11 @@ $(function(){
 	
 	function handleUser(data){
 		$("#user-name").text(data.name);
+		/*var html = '';
+		html = '你好，' 
+			+ data.name 
+			+ '<a class="pull-right" id="addShop" href="/shopadmin/shopoperation">增加店铺</a>'
+      	$('.titleShop').html(html);*/
 	}
 	
 	function handleList(data){
@@ -50,4 +57,8 @@ $(function(){
 			return '';
 		}
 	}
+	
+	$('#addShop').click(function(){
+		window.location.href = '/shopadmin/shopoperation';
+	});
 });

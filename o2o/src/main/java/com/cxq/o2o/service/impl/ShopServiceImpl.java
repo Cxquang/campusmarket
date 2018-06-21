@@ -1,7 +1,5 @@
 package com.cxq.o2o.service.impl;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cxq.o2o.dao.ShopDao;
+import com.cxq.o2o.dto.ImageHolder;
 import com.cxq.o2o.dto.ShopExecution;
 import com.cxq.o2o.entity.Shop;
 import com.cxq.o2o.enums.ShopStateEnum;
@@ -28,7 +27,7 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Override
 	@Transactional
-	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream,String fileName) {
+	public ShopExecution addShop(Shop shop, ImageHolder thumbnail) {
 		/*
 		 * 空值判断
 		 */
@@ -50,10 +49,10 @@ public class ShopServiceImpl implements ShopService {
 				//只有抛出ShopOperationException时事务才会终止和回滚
 				throw new ShopOperationException("店铺创建失败");
 			}else {
-				if(shopImgInputStream != null) {
+				if(thumbnail.getImage() != null) {
 					//存储图片,将重组添加信息的图片存储地址保存到shop实体类中
 					try {
-						addShopImg(shop,shopImgInputStream,fileName);
+						addShopImg(shop,thumbnail);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						throw new ShopOperationException("addshopImgInputStream error：" + e.getMessage());
@@ -72,11 +71,11 @@ public class ShopServiceImpl implements ShopService {
 		}
 		return new ShopExecution(ShopStateEnum.CHECK,shop);
 	}
-	private void addShopImg(Shop shop, InputStream shopImgInputStream,String fileName) {
+	private void addShopImg(Shop shop, ImageHolder thumbnail) {
 		// 获取shop图片目录的相对值路径,在generateThumbnail的方法中会与getImgBasePath中的 绝对路径结合
 		String dest = PathUtil.getShopImagePath(shop.getShopId());
 		System.out.println(dest);
-		String shopImgInputStreamAddr = ImageUtil.generateThumbnail(shopImgInputStream,fileName, dest);
+		String shopImgInputStreamAddr = ImageUtil.generateThumbnail(thumbnail, dest);
 		shop.setShopImg(shopImgInputStreamAddr);
 		
 	}
@@ -85,21 +84,21 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.queryByShopId(shopId);
 	}
 	@Override
-	public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName)
+	public ShopExecution modifyShop(Shop shop, ImageHolder thumbnail)
 			throws ShopOperationException {
 		if(shop == null || shop.getShopId() == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
 		}else {
 		// 1、判断是否需要处理图片
 			try {
-				if(shopImgInputStream != null && fileName != null &&!"".equals(fileName)) {
+				if(thumbnail.getImage() != null && thumbnail.getImageName() != null &&!"".equals(thumbnail.getImageName())) {
 					//获取在数据库中旧的数据
 					Shop temShop = shopDao.queryByShopId(shop.getShopId());
 					if(temShop.getShopImg() != null) {
 						//将数据库中存储图片的文件路径或者目录路径下的图片删除
 						ImageUtil.deleteFileOrPath(temShop.getShopImg());
 					}
-					addShopImg(shop, shopImgInputStream, fileName);
+					addShopImg(shop, thumbnail);
 				}
 			//2、更新店铺信息
 			shop.setLastEditTime(new Date());

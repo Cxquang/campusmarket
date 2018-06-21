@@ -1,10 +1,6 @@
 package com.cxq.o2o.web.shopadmin;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,20 +17,18 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.cxq.o2o.dto.ImageHolder;
 import com.cxq.o2o.dto.ShopExecution;
 import com.cxq.o2o.entity.Area;
 import com.cxq.o2o.entity.PersonInfo;
 import com.cxq.o2o.entity.Shop;
 import com.cxq.o2o.entity.ShopCategory;
 import com.cxq.o2o.enums.ShopStateEnum;
-import com.cxq.o2o.exceptions.ShopOperationException;
 import com.cxq.o2o.service.AreaService;
 import com.cxq.o2o.service.ShopCategoryService;
 import com.cxq.o2o.service.ShopService;
 import com.cxq.o2o.util.CodeUtil;
 import com.cxq.o2o.util.HttpServletRequestUtil;
-import com.cxq.o2o.util.ImageUtil;
-import com.cxq.o2o.util.PathUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -49,7 +42,6 @@ public class ShopManagementController {
 	private ShopCategoryService shopCategoryService;
 	@Autowired
 	private AreaService areaService;
-	
 	@RequestMapping(value = "/getshopbyid",method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String,Object> getShopById(HttpServletRequest request){
@@ -145,7 +137,8 @@ public class ShopManagementController {
 			shop.setOwner(owner);
 			ShopExecution se;
 			try {
-				se = shopService.addShop(shop,shopImg.getInputStream(),shopImg.getOriginalFilename());
+				ImageHolder thumbnail = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+				se = shopService.addShop(shop,thumbnail);
 				if(se.getState() == ShopStateEnum.CHECK.getState()) {
 					modelMap.put("success", true);
 					//该用户可以操作的店铺列表
@@ -220,9 +213,10 @@ public class ShopManagementController {
 			ShopExecution se;
 			try {
 				if(shopImg == null) {
-					se = shopService.modifyShop(shop,null,null);
+					se = shopService.modifyShop(shop,null);
 				}else {
-					se = shopService.modifyShop(shop,shopImg.getInputStream(),shopImg.getOriginalFilename());
+					ImageHolder thumbnail = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+					se = shopService.modifyShop(shop,thumbnail);
 				}
 				if(se.getState() == ShopStateEnum.SUCCESS.getState()) {
 					modelMap.put("success", true);

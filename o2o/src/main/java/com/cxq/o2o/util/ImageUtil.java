@@ -9,8 +9,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.cxq.o2o.dto.ImageHolder;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -28,15 +27,15 @@ public class ImageUtil {
 	 * 使用File对象接收文件对象,这里是为了方便使用Junit单元测试， 可以直接传入相关的文件
 	 * targetAddr:图片存储路径
 	 */
-	public static String generateThumbnail(InputStream thumbnailInputStream,String fileName,String targetAddr) {
+	public static String generateThumbnail(ImageHolder thumbnail,String targetAddr) {
 		String realFileName = getRandomFileName();//获取文件的随机名
-		String extension = getFileExtension(fileName);//获取文件的扩展名，如jpg，png等
+		String extension = getFileExtension(thumbnail.getImageName());//获取文件的扩展名，如jpg，png等
 		makeDirPath(targetAddr);//如果目录不存在，创建目录
 		String relativeAddr = targetAddr + realFileName + extension;
 		//保存的压缩后的图片需要图片的名称加后缀名
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnailInputStream).size(2000,2000)
+			Thumbnails.of(thumbnail.getImage()).size(2000,2000)
 			.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 1f)
 			.outputQuality(0.5f).toFile(dest);
 			
@@ -45,7 +44,7 @@ public class ImageUtil {
 		}
 		return relativeAddr;
 		
-	};
+	}
 
 	
 	/**生成随机文件名，当前年月日小时分钟秒钟+五位随机数
@@ -121,5 +120,25 @@ public class ImageUtil {
 			}
 			fileOrPath.delete();
 		}
+	}
+
+
+	public static String generateNormalImg(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+		String realFileName = getRandomFileName();//获取文件的随机名
+		String extension = getFileExtension(fileName);//获取文件的扩展名，如jpg，png等
+		makeDirPath(targetAddr);//如果目录不存在，创建目录
+		String relativeAddr = targetAddr + realFileName + extension;
+		//保存的压缩后的图片需要图片的名称加后缀名,获取文件要保存到的目录路径
+		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+		//调用Thumbnail生成带有水印的图片
+		try {
+			Thumbnails.of(thumbnailInputStream).size(2000,2000)
+			.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 1f)
+			.outputQuality(0.9f).toFile(dest);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return relativeAddr;
 	}
 }

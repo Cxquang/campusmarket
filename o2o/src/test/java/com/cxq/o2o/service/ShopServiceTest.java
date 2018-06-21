@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cxq.o2o.BaseTest;
 import com.cxq.o2o.dao.ShopDao;
+import com.cxq.o2o.dto.ImageHolder;
 import com.cxq.o2o.dto.ShopExecution;
 import com.cxq.o2o.entity.Area;
 import com.cxq.o2o.entity.PersonInfo;
@@ -49,7 +50,8 @@ public class ShopServiceTest extends BaseTest{
 		shop.setAdvice("审核中");
 		File shopImg = new File("E:\\image\\flower.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopExecution se = shopService.addShop(shop,is,shopImg.getName());
+		ImageHolder thumbnail = new ImageHolder(shopImg.getName(), is);
+		ShopExecution se = shopService.addShop(shop,thumbnail);
 		assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
 
 		
@@ -62,7 +64,8 @@ public class ShopServiceTest extends BaseTest{
 		shop.setShopName("修改后的店铺名称4");
 		File shopImg = new File("E:\\image\\flower.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopExecution shopExecution = shopService.modifyShop(shop, is, "flower.jpg");
+		ImageHolder thumbnail = new ImageHolder("flower.jpg",is);
+		ShopExecution shopExecution = shopService.modifyShop(shop, thumbnail);
 		System.out.println("新的图片地址： " + shopExecution.getShop().getShopImg());
 		System.out.println("新的店铺名称：" + shopExecution.getShop().getShopName());
 	}

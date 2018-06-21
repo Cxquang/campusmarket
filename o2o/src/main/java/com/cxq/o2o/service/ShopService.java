@@ -1,8 +1,6 @@
 package com.cxq.o2o.service;
 
-import java.io.File;
-import java.io.InputStream;
-
+import com.cxq.o2o.dto.ImageHolder;
 import com.cxq.o2o.dto.ShopExecution;
 import com.cxq.o2o.entity.Shop;
 import com.cxq.o2o.exceptions.ShopOperationException;
@@ -16,7 +14,7 @@ public interface ShopService {
 	 * @param fileName
 	 * @return
 	 */
-	ShopExecution addShop(Shop shop,InputStream shopImgInputStream,String fileName);
+	ShopExecution addShop(Shop shop,ImageHolder thumbnail);
 	
 	/**
 	 * 通过店铺Id获取店铺信息
@@ -35,7 +33,7 @@ public interface ShopService {
 	 * @return
 	 * @throws ShopOperationException
 	 */
-	ShopExecution modifyShop(Shop shop,InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+	ShopExecution modifyShop(Shop shop,ImageHolder thumbnail) throws ShopOperationException;
 	
 	/**
 	 * 根据shopCondition分页返回相应列表数据

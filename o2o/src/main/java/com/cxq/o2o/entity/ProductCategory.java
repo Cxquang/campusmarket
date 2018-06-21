@@ -6,7 +6,7 @@ public class ProductCategory {
 	//商品类别Id
 	private Long productCategoryId;
 	//店铺Id
-	private Long ShopId;
+	private Long shopId;
 	//商品类别名称
 	private String productCategoryName;
 	//权重
@@ -20,10 +20,10 @@ public class ProductCategory {
 		this.productCategoryId = productCategoryId;
 	}
 	public Long getShopId() {
-		return ShopId;
+		return shopId;
 	}
 	public void setShopId(Long shopId) {
-		ShopId = shopId;
+		this.shopId = shopId;
 	}
 	public String getProductCategoryName() {
 		return productCategoryName;
